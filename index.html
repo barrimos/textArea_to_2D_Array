@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #addArea{
+        margin: 10px 0;
+    }
+    textarea:not(:first-child){
+        margin-top: 30px;
+    }
+</style>
+<body>
+    <div id="content">
+        <textarea name="txtToarray" data-area="txtToarray" data-id="A" cols="30" rows="10"></textarea>
+        <div>result A</div>
+        <div id="A"></div>
+    </div>
+    <button id="addArea">&plus;</button>
+    <script src="./textareaToArray.js"></script>
+    <script>
+        const content = document.querySelector('#content');
+        const btn = document.querySelector('#addArea');
+        let currentCharId = Array.from(document.querySelectorAll('[data-id]')).slice(-1)[0].getAttribute('data-id').charCodeAt();
+        
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            const id = String.fromCharCode(++currentCharId);
+            const textAreaElem = `
+                <textarea name="txtToarray" data-area="txtToarray" data-id="${id}" cols="30" rows="10"></textarea>
+                <div>result ${id}</div>
+                <div id="${id}"></div>`
+
+            content.innerHTML += textAreaElem;
+
+            let newAddTextArea = document.querySelectorAll('[data-area=txtToarray]');
+    
+            getTextAreaData(newAddTextArea);
+        });
+    </script>
+</body>
+</html>
